@@ -108,79 +108,54 @@ void komplett(unsigned char value,int mydelay)
         }
 }
 
-void ramp(char dir,int delay_value)
+
+void fade2off(int mydelay)
 {
-  if(dir==1)
+  int i,j,k,n;
+  for(n=15;n>=0;n--)
   {
-    komplett(0,0);
-    delay(delay_value);
-    komplett(1,0);
-    delay(delay_value);
-    komplett(2,0);
-    delay(delay_value);
-    komplett(3,0);
-    delay(delay_value);
-    komplett(4,0);
-    delay(delay_value);
-    komplett(5,0);
-    delay(delay_value);
-    komplett(6,0);
-    delay(delay_value);
-    komplett(7,0);
-    delay(delay_value);
-    komplett(8,0);
-    delay(delay_value);
-    komplett(9,0);
-    delay(delay_value);
-    komplett(10,0);
-    delay(delay_value);
-    komplett(11,0);
-    delay(delay_value);
-    komplett(12,0);
-    delay(delay_value);
-    komplett(13,0);
-    delay(delay_value);
-    komplett(14,0);
-    delay(delay_value);
-    komplett(15,0);
-    delay(delay_value);
-  }
-  if(dir==0)
-  {
-    komplett(15,0);
-    delay(delay_value);
-    komplett(14,0);
-    delay(delay_value);
-    komplett(13,0);
-    delay(delay_value);
-    komplett(12,0);
-    delay(delay_value);
-    komplett(11,0);
-    delay(delay_value);
-    komplett(10,0);
-    delay(delay_value);
-    komplett(9,0);
-    delay(delay_value);
-    komplett(8,0);
-    delay(delay_value);
-    komplett(7,0);
-    delay(delay_value);
-    komplett(6,0);
-    delay(delay_value);
-    komplett(5,0);
-    delay(delay_value);
-    komplett(4,0);
-    delay(delay_value);
-    komplett(3,0);
-    delay(delay_value);
-    komplett(2,0);
-    delay(delay_value);
-    komplett(1,0);
-    delay(delay_value);
-    komplett(0,0);
-    delay(delay_value);
-  }
+     for(i=0;i<3;i++)
+     {
+       for(j=0;j<3;j++)
+       {
+        for(k=0;k<3;k++)
+        {
+           if(cube[i][j][k]>n)cube[i][j][k]=n;
+   
+        }
+      }
+    }
+    delay(mydelay);
+ }
 }
+
+void fade2on(int mydelay)
+{
+  int i,j,k,n;
+  for(n=0;n<=15;n++)
+  {
+     for(i=0;i<3;i++)
+     {
+       for(j=0;j<3;j++)
+       {
+        for(k=0;k<3;k++)
+        {
+           if(cube[i][j][k]<n)cube[i][j][k]=n;
+   
+        }
+      }
+    }
+    delay(mydelay);
+ }
+}
+
+void fade(int delay)
+{
+  komplett(0,0);
+  fade2on(delay);
+  fade2off(delay);
+}
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -248,11 +223,6 @@ void switch_layer(int layer)
   if(layer==3)   digitalWrite(L3, LOW);
 }
 
-void fade(int delay)
-{
-  ramp(1,delay);
-  ramp(0,delay);
-}
 
 void flash(int mydelay)
 {
@@ -305,10 +275,12 @@ void loop() {
   single_led(150);
   komplett(15,150);
   komplett(0,150);
+  random_behavior_hard(1000,10);
+  for (i=0;i<10;i++)flash(100);
+  for(i=1;i<10;i++)fade(i*10);
+  fade(100);
   fade(100);
   random_behavior_soft(100,100);
-  random_behavior_hard(3000,10);
-  for(i=1;i<10;i++)fade(i*2);
+  fade2off(200);
   for (i=0;i<10;i++)fade(20);
-  for (i=0;i<20;i++)flash(100);
 }

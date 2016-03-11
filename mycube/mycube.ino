@@ -284,10 +284,25 @@ void random_behavior_hard(int duration,int mydelay)
   }
 }
 
+void single_led(int mydelay)
+{
+  unsigned char i,j,k;
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+        {
+          komplett(0,0);
+          cube[k][j][i]=15;
+          delay(mydelay);
+        }
+  komplett(0,0);
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
+  single_led(150);
+  single_led(150);
   komplett(15,150);
   komplett(0,150);
   fade(100);

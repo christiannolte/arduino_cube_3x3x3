@@ -96,85 +96,88 @@ ISR(TIMER2_COMPA_vect){
         digitalWrite(LED9, LOW);
 }
 
-void komplett(unsigned char value)
+void komplett(unsigned char value,int mydelay)
 {
   unsigned char i,j,k;
   for(i=0;i<3;i++)
      for(j=0;j<3;j++)
         for(k=0;k<3;k++)
-          cube[i][j][k]=value;
+        {
+          cube[k][j][i]=value;
+          delay(mydelay);
+        }
 }
 
 void ramp(char dir,int delay_value)
 {
   if(dir==1)
   {
-    komplett(0);
+    komplett(0,0);
     delay(delay_value);
-    komplett(1);
+    komplett(1,0);
     delay(delay_value);
-    komplett(2);
+    komplett(2,0);
     delay(delay_value);
-    komplett(3);
+    komplett(3,0);
     delay(delay_value);
-    komplett(4);
+    komplett(4,0);
     delay(delay_value);
-    komplett(5);
+    komplett(5,0);
     delay(delay_value);
-    komplett(6);
+    komplett(6,0);
     delay(delay_value);
-    komplett(7);
+    komplett(7,0);
     delay(delay_value);
-    komplett(8);
+    komplett(8,0);
     delay(delay_value);
-    komplett(9);
+    komplett(9,0);
     delay(delay_value);
-    komplett(10);
+    komplett(10,0);
     delay(delay_value);
-    komplett(11);
+    komplett(11,0);
     delay(delay_value);
-    komplett(12);
+    komplett(12,0);
     delay(delay_value);
-    komplett(13);
+    komplett(13,0);
     delay(delay_value);
-    komplett(14);
+    komplett(14,0);
     delay(delay_value);
-    komplett(15);
+    komplett(15,0);
     delay(delay_value);
   }
   if(dir==0)
   {
-    komplett(15);
+    komplett(15,0);
     delay(delay_value);
-    komplett(14);
+    komplett(14,0);
     delay(delay_value);
-    komplett(13);
+    komplett(13,0);
     delay(delay_value);
-    komplett(12);
+    komplett(12,0);
     delay(delay_value);
-    komplett(11);
+    komplett(11,0);
     delay(delay_value);
-    komplett(10);
+    komplett(10,0);
     delay(delay_value);
-    komplett(9);
+    komplett(9,0);
     delay(delay_value);
-    komplett(8);
+    komplett(8,0);
     delay(delay_value);
-    komplett(7);
+    komplett(7,0);
     delay(delay_value);
-    komplett(6);
+    komplett(6,0);
     delay(delay_value);
-    komplett(5);
+    komplett(5,0);
     delay(delay_value);
-    komplett(4);
+    komplett(4,0);
     delay(delay_value);
-    komplett(3);
+    komplett(3,0);
     delay(delay_value);
-    komplett(2);
+    komplett(2,0);
     delay(delay_value);
-    komplett(1);
+    komplett(1,0);
     delay(delay_value);
-    komplett(0);
+    komplett(0,0);
     delay(delay_value);
   }
 }
@@ -253,16 +256,16 @@ void fade(int delay)
 
 void flash(int mydelay)
 {
-  komplett(15);
+  komplett(15,0);
   delay(mydelay);
-  komplett(0);
+  komplett(0,0);
   delay(mydelay);
 }
 
 void random_behavior_soft(int duration,int mydelay)
 {
   int i;
-  komplett(0);
+  komplett(0,0);
   for(i=0;i<duration;i++)
   {
     cube[random(0,3)][random(0,3)][random(0,3)]=random(0,15);
@@ -273,7 +276,7 @@ void random_behavior_soft(int duration,int mydelay)
 void random_behavior_hard(int duration,int mydelay)
 {
   int i;
-  komplett(0);
+  komplett(0,0);
   for(i=0;i<duration;i++)
   {
     cube[random(0,3)][random(0,3)][random(0,3)]=15*random(0,2);
@@ -281,10 +284,27 @@ void random_behavior_hard(int duration,int mydelay)
   }
 }
 
+void single_led(int mydelay)
+{
+  unsigned char i,j,k;
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+        {
+          komplett(0,0);
+          cube[k][j][i]=15;
+          delay(mydelay);
+        }
+  komplett(0,0);
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
+  single_led(150);
+  single_led(150);
+  komplett(15,150);
+  komplett(0,150);
   fade(100);
   random_behavior_soft(100,100);
   random_behavior_hard(3000,10);

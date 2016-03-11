@@ -268,6 +268,240 @@ void single_led(int mydelay)
   komplett(0,0);
 }
 
+void seiten(int mydelay)
+{
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[0][1][0]=15;
+  cube[0][2][0]=15;
+  cube[0][0][1]=15;
+  cube[0][1][1]=15;
+  cube[0][2][1]=15;
+  cube[0][0][2]=15;
+  cube[0][1][2]=15;
+  cube[0][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[1][0][0]=15;
+  cube[1][1][0]=15;
+  cube[1][2][0]=15;
+  cube[1][0][1]=15;
+  cube[1][1][1]=15;
+  cube[1][2][1]=15;
+  cube[1][0][2]=15;
+  cube[1][1][2]=15;
+  cube[1][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[2][0][0]=15;
+  cube[2][1][0]=15;
+  cube[2][2][0]=15;
+  cube[2][0][1]=15;
+  cube[2][1][1]=15;
+  cube[2][2][1]=15;
+  cube[2][0][2]=15;
+  cube[2][1][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+}
+
+void etagen(int mydelay)
+{
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[1][0][0]=15;
+  cube[2][0][0]=15;
+  cube[0][1][0]=15;
+  cube[1][1][0]=15;
+  cube[2][1][0]=15;
+  cube[0][2][0]=15;
+  cube[1][2][0]=15;
+  cube[2][2][0]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][1]=15;
+  cube[1][0][1]=15;
+  cube[2][0][1]=15;
+  cube[0][1][1]=15;
+  cube[1][1][1]=15;
+  cube[2][1][1]=15;
+  cube[0][2][1]=15;
+  cube[1][2][1]=15;
+  cube[2][2][1]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][2]=15;
+  cube[1][0][2]=15;
+  cube[2][0][2]=15;
+  cube[0][1][2]=15;
+  cube[1][1][2]=15;
+  cube[2][1][2]=15;
+  cube[0][2][2]=15;
+  cube[1][2][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+}
+
+void tiefen(int mydelay)
+{
+  komplett(0,0);
+  cube[0][2][0]=15;
+  cube[1][2][0]=15;
+  cube[2][2][0]=15;
+  cube[0][2][1]=15;
+  cube[1][2][1]=15;
+  cube[2][2][1]=15;
+  cube[0][2][2]=15;
+  cube[1][2][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][1][0]=15;
+  cube[1][1][0]=15;
+  cube[2][1][0]=15;
+  cube[0][1][1]=15;
+  cube[1][1][1]=15;
+  cube[2][1][1]=15;
+  cube[0][1][2]=15;
+  cube[1][1][2]=15;
+  cube[2][1][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[1][0][0]=15;
+  cube[2][0][0]=15;
+  cube[0][0][1]=15;
+  cube[1][0][1]=15;
+  cube[2][0][1]=15;
+  cube[0][0][2]=15;
+  cube[1][0][2]=15;
+  cube[2][0][2]=15;
+  delay(mydelay);
+  
+}
+
+void etage2seite(int mydelay)
+{
+  komplett(0,0);
+  cube[0][0][2]=15;
+  cube[1][0][2]=15;
+  cube[2][0][2]=15;
+  cube[0][1][2]=15;
+  cube[1][1][2]=15;
+  cube[2][1][2]=15;
+  cube[0][2][2]=15;
+  cube[1][2][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][2]=15;
+  cube[0][1][2]=15;
+  cube[0][2][2]=15;
+  cube[1][0][1]=15;
+  cube[1][1][1]=15;
+  cube[1][2][1]=15;
+  cube[2][0][0]=15;
+  cube[2][1][0]=15;
+  cube[2][2][0]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[0][1][0]=15;
+  cube[0][2][0]=15;
+  cube[0][0][1]=15;
+  cube[0][1][1]=15;
+  cube[0][2][1]=15;
+  cube[0][0][2]=15;
+  cube[0][1][2]=15;
+  cube[0][2][2]=15;
+  delay(mydelay);
+}
+
+void seiten2tiefen(int mydelay)
+{
+  komplett(0,0);
+  cube[2][0][0]=15;
+  cube[2][1][0]=15;
+  cube[2][2][0]=15;
+  cube[2][0][1]=15;
+  cube[2][1][1]=15;
+  cube[2][2][1]=15;
+  cube[2][0][2]=15;
+  cube[2][1][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[2][2][0]=15;
+  cube[2][2][1]=15;
+  cube[2][2][2]=15;
+  cube[0][0][0]=15;
+  cube[0][0][1]=15;
+  cube[0][0][2]=15;
+  cube[1][1][0]=15;
+  cube[1][1][1]=15;
+  cube[1][1][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][2][0]=15;
+  cube[1][2][0]=15;
+  cube[2][2][0]=15;
+  cube[0][2][1]=15;
+  cube[1][2][1]=15;
+  cube[2][2][1]=15;
+  cube[0][2][2]=15;
+  cube[1][2][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+}
+
+void tiefen2etage(int mydelay)
+{
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[1][0][0]=15;
+  cube[2][0][0]=15;
+  cube[0][0][1]=15;
+  cube[1][0][1]=15;
+  cube[2][0][1]=15;
+  cube[0][0][2]=15;
+  cube[1][0][2]=15;
+  cube[2][0][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[1][0][0]=15;
+  cube[2][0][0]=15;
+  cube[0][1][1]=15;
+  cube[1][1][1]=15;
+  cube[2][1][1]=15;
+  cube[0][2][2]=15;
+  cube[1][2][2]=15;
+  cube[2][2][2]=15;
+  delay(mydelay);
+  komplett(0,0);
+  cube[0][0][0]=15;
+  cube[1][0][0]=15;
+  cube[2][0][0]=15;
+  cube[0][1][0]=15;
+  cube[1][1][0]=15;
+  cube[2][1][0]=15;
+  cube[0][2][0]=15;
+  cube[1][2][0]=15;
+  cube[2][2][0]=15;
+  delay(mydelay);
+  
+}
+
+void fold(int mydelay)
+{
+  etagen(2*mydelay);
+  etage2seite(mydelay);
+  seiten(2*mydelay);
+  seiten2tiefen(mydelay);
+  tiefen(2*mydelay);
+  tiefen2etage(mydelay);
+}
+
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
@@ -276,7 +510,14 @@ void loop() {
   komplett(15,150);
   komplett(0,150);
   random_behavior_hard(1000,10);
+  komplett(0,0);
+  fold(150);
+  fold(150);
+  fold(150);
+  fold(150);
   for (i=0;i<10;i++)flash(100);
+  fade2on(100);
+  fade2off(100);
   for(i=1;i<10;i++)fade(i*10);
   fade(100);
   fade(100);

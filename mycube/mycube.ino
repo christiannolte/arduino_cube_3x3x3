@@ -103,7 +103,7 @@ void komplett(unsigned char value,int mydelay)
      for(j=0;j<3;j++)
         for(k=0;k<3;k++)
         {
-          cube[i][j][k]=value;
+          cube[k][j][i]=value;
           delay(mydelay);
         }
 }

@@ -270,6 +270,16 @@ void random_behavior_soft(int duration,int mydelay)
   }
 }
 
+void random_behavior_hard(int duration,int mydelay)
+{
+  int i;
+  komplett(0);
+  for(i=0;i<duration;i++)
+  {
+    cube[random(0,3)][random(0,3)][random(0,3)]=15*random(0,2);
+    delay(mydelay);
+  }
+}
 
 
 void loop() {
@@ -277,6 +287,7 @@ void loop() {
   int i;
   fade(100);
   random_behavior_soft(100,100);
+  random_behavior_hard(3000,10);
   for(i=1;i<10;i++)fade(i*2);
   for (i=0;i<10;i++)fade(20);
   for (i=0;i<20;i++)flash(100);

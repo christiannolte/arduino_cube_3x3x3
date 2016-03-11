@@ -104,7 +104,7 @@ void setup() {
   interrupts();
 }
 
-void layer(int layer)
+void switch_layer(int layer)
 {
   digitalWrite(L1, HIGH);
   digitalWrite(L2, HIGH);
@@ -173,27 +173,27 @@ void single_movement()
   // put your main code here, to run repeatedly:
   for(i=0;i<3;i++)
   {
-    layer(1);
+    switch_layer(1);
     show_all_led_single();
-    layer(2);
+    switch_layer(2);
     show_all_led_single();
-    layer(3);
+    switch_layer(3);
     show_all_led_single();
   }
 }
 
 void show_layers_seperate()
 {
-  layer(1);
+  switch_layer(1);
   show_complete_layer();
   delay(200);
-  layer(2);
+  switch_layer(2);
   delay(300);
-  layer(3);
+  switch_layer(3);
   delay(400);
-  layer(2);
+  switch_layer(2);
   delay(500);
-  layer(1);
+  switch_layer(1);
 }
 
 void multiplex_show()
@@ -201,50 +201,50 @@ void multiplex_show()
   int i;
   for(i=0;i<333;i++)
   {
-    layer(1);
+    switch_layer(1);
     delay(1);
-    layer(0);
+    switch_layer(0);
     delay(1);
-    layer(0);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    layer(1);
-    delay(1);
-    layer(2);
-    delay(1);
-    layer(0);
+    switch_layer(0);
     delay(1);
   }
   for(i=0;i<333;i++)
   {
-    layer(1);
+    switch_layer(1);
     delay(1);
-    layer(2);
+    switch_layer(2);
     delay(1);
-    layer(3);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    layer(2);
-    delay(1);
-    layer(3);
-    delay(1);
-    layer(0);
+    switch_layer(0);
     delay(1);
   }
   for(i=0;i<333;i++)
   {
-    layer(0);
+    switch_layer(1);
     delay(1);
-    layer(3);
+    switch_layer(2);
     delay(1);
-    layer(0);
+    switch_layer(3);
     delay(1);
   }
-  layer(3);
+  for(i=0;i<333;i++)
+  {
+    switch_layer(2);
+    delay(1);
+    switch_layer(3);
+    delay(1);
+    switch_layer(0);
+    delay(1);
+  }
+  for(i=0;i<333;i++)
+  {
+    switch_layer(0);
+    delay(1);
+    switch_layer(3);
+    delay(1);
+    switch_layer(0);
+    delay(1);
+  }
+  switch_layer(3);
   delay(1000);  
 }
 

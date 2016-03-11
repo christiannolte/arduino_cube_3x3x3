@@ -12,11 +12,14 @@
 #define LED8 8
 #define LED9 4
 
+
 unsigned char pwm;
 unsigned char layer;
 unsigned char counter;
 unsigned char speed;
 unsigned char updateFrame=0;
+
+unsigned char cube[3][3][3];
 
 
 // Timer 1 output compare A interrupt service routine.
@@ -44,13 +47,141 @@ ISR(TIMER2_COMPA_vect){
     if(layer >= 3){
       layer = 0;
     }
+    switch_layer(layer+1);
+  }
+  //Do all the hard work here
+  if(cube[0][0][layer]>pwm)  
+        digitalWrite(LED1, HIGH);
+  else   
+        digitalWrite(LED1, LOW);
+        
+  if(cube[1][0][layer]>pwm)  
+        digitalWrite(LED2, HIGH);
+  else   
+        digitalWrite(LED2, LOW);
+  
+  if(cube[2][0][layer]>pwm)  
+        digitalWrite(LED3, HIGH);
+  else   
+        digitalWrite(LED3, LOW);
+  
+  if(cube[0][1][layer]>pwm)  
+        digitalWrite(LED4, HIGH);
+  else   
+        digitalWrite(LED4, LOW);
+
+  if(cube[1][1][layer]>pwm)  
+        digitalWrite(LED5, HIGH);
+  else   
+        digitalWrite(LED5, LOW);
+
+  if(cube[2][1][layer]>pwm)  
+        digitalWrite(LED6, HIGH);
+  else   
+        digitalWrite(LED6, LOW);
+
+  if(cube[0][2][layer]>pwm)  
+        digitalWrite(LED7, HIGH);
+  else   
+        digitalWrite(LED7, LOW);
+
+  if(cube[1][2][layer]>pwm)  
+        digitalWrite(LED8, HIGH);
+  else   
+        digitalWrite(LED8,LOW);
+
+  if(cube[2][2][layer]>pwm)  
+        digitalWrite(LED9, HIGH);
+  else   
+        digitalWrite(LED9, LOW);
+}
+
+void komplett(unsigned char value)
+{
+  unsigned char i,j,k;
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+          cube[i][j][k]=value;
+}
+
+void ramp(char dir,int delay_value)
+{
+  if(dir==1)
+  {
+    komplett(0);
+    delay(delay_value);
+    komplett(1);
+    delay(delay_value);
+    komplett(2);
+    delay(delay_value);
+    komplett(3);
+    delay(delay_value);
+    komplett(4);
+    delay(delay_value);
+    komplett(5);
+    delay(delay_value);
+    komplett(6);
+    delay(delay_value);
+    komplett(7);
+    delay(delay_value);
+    komplett(8);
+    delay(delay_value);
+    komplett(9);
+    delay(delay_value);
+    komplett(10);
+    delay(delay_value);
+    komplett(11);
+    delay(delay_value);
+    komplett(12);
+    delay(delay_value);
+    komplett(13);
+    delay(delay_value);
+    komplett(14);
+    delay(delay_value);
+    komplett(15);
+    delay(delay_value);
+  }
+  if(dir==0)
+  {
+    komplett(15);
+    delay(delay_value);
+    komplett(14);
+    delay(delay_value);
+    komplett(13);
+    delay(delay_value);
+    komplett(12);
+    delay(delay_value);
+    komplett(11);
+    delay(delay_value);
+    komplett(10);
+    delay(delay_value);
+    komplett(9);
+    delay(delay_value);
+    komplett(8);
+    delay(delay_value);
+    komplett(7);
+    delay(delay_value);
+    komplett(6);
+    delay(delay_value);
+    komplett(5);
+    delay(delay_value);
+    komplett(4);
+    delay(delay_value);
+    komplett(3);
+    delay(delay_value);
+    komplett(2);
+    delay(delay_value);
+    komplett(1);
+    delay(delay_value);
+    komplett(0);
+    delay(delay_value);
   }
 }
 
-
-
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
   pinMode(L1, OUTPUT);
   pinMode(L2, OUTPUT);
   pinMode(L3, OUTPUT);
@@ -112,146 +243,27 @@ void switch_layer(int layer)
   if(layer==1)   digitalWrite(L1, LOW);
   if(layer==2)   digitalWrite(L2, LOW);
   if(layer==3)   digitalWrite(L3, LOW);
-
 }
 
-void show_all_led_single()
+void fade(int delay)
 {
-  digitalWrite(LED1, LOW);
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, LOW);
-  digitalWrite(LED4, LOW);
-  digitalWrite(LED5, LOW);
-  digitalWrite(LED6, LOW);
-  digitalWrite(LED7, LOW);
-  digitalWrite(LED8, LOW);
-  digitalWrite(LED9, LOW);
-  digitalWrite(LED1, HIGH);
-  delay(100);
-  digitalWrite(LED1, LOW);
-  digitalWrite(LED2, HIGH);
-  delay(100);
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, HIGH);
-  delay(100);
-  digitalWrite(LED3, LOW);
-  digitalWrite(LED4, HIGH);
-  delay(100);
-  digitalWrite(LED4, LOW);
-  digitalWrite(LED5, HIGH);
-  delay(100);
-  digitalWrite(LED5, LOW);
-  digitalWrite(LED6, HIGH);
-  delay(100);
-  digitalWrite(LED6, LOW);
-  digitalWrite(LED7, HIGH);
-  delay(100);
-  digitalWrite(LED7, LOW);
-  digitalWrite(LED8, HIGH);
-  delay(100);
-  digitalWrite(LED8, LOW);
-  digitalWrite(LED9, HIGH);
-  delay(100);
+  ramp(1,delay);
+  ramp(0,delay);
 }
 
-void show_complete_layer()
+void flash(int mydelay)
 {
-  digitalWrite(LED1, HIGH);
-  digitalWrite(LED2, HIGH);
-  digitalWrite(LED3, HIGH);
-  digitalWrite(LED4, HIGH);
-  digitalWrite(LED5, HIGH);
-  digitalWrite(LED6, HIGH);
-  digitalWrite(LED7, HIGH);
-  digitalWrite(LED8, HIGH);
-  digitalWrite(LED9, HIGH);
+  komplett(15);
+  delay(mydelay);
+  komplett(0);
+  delay(mydelay);
 }
 
-void single_movement()
-{
-  int i;
-  // put your main code here, to run repeatedly:
-  for(i=0;i<3;i++)
-  {
-    switch_layer(1);
-    show_all_led_single();
-    switch_layer(2);
-    show_all_led_single();
-    switch_layer(3);
-    show_all_led_single();
-  }
-}
-
-void show_layers_seperate()
-{
-  switch_layer(1);
-  show_complete_layer();
-  delay(200);
-  switch_layer(2);
-  delay(300);
-  switch_layer(3);
-  delay(400);
-  switch_layer(2);
-  delay(500);
-  switch_layer(1);
-}
-
-void multiplex_show()
-{
-  int i;
-  for(i=0;i<333;i++)
-  {
-    switch_layer(1);
-    delay(1);
-    switch_layer(0);
-    delay(1);
-    switch_layer(0);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    switch_layer(1);
-    delay(1);
-    switch_layer(2);
-    delay(1);
-    switch_layer(0);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    switch_layer(1);
-    delay(1);
-    switch_layer(2);
-    delay(1);
-    switch_layer(3);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    switch_layer(2);
-    delay(1);
-    switch_layer(3);
-    delay(1);
-    switch_layer(0);
-    delay(1);
-  }
-  for(i=0;i<333;i++)
-  {
-    switch_layer(0);
-    delay(1);
-    switch_layer(3);
-    delay(1);
-    switch_layer(0);
-    delay(1);
-  }
-  switch_layer(3);
-  delay(1000);  
-}
 
 void loop() {
   // put your main code here, to run repeatedly:
-  single_movement();
-  show_layers_seperate();
-  delay(1000);
-  multiplex_show();
+  int i;
+  for(i=1;i<10;i++)fade(i*2);
+  for (i=0;i<10;i++)fade(20);
+  for (i=0;i<20;i++)flash(100);
 }

@@ -259,10 +259,23 @@ void flash(int mydelay)
   delay(mydelay);
 }
 
+void random_behavior(int duration,int mydelay)
+{
+  int i;
+  komplett(0);
+  for(i=0;i<duration;i++)
+  {
+    cube[random(0,3)][random(0,3)][random(0,3)]=random(0,15);
+    delay(mydelay);
+  }
+}
+
 
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
+  fade(100);
+  random_behavior(100,100);
   for(i=1;i<10;i++)fade(i*2);
   for (i=0;i<10;i++)fade(20);
   for (i=0;i<20;i++)flash(100);

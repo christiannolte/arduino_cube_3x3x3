@@ -12,6 +12,43 @@
 #define LED8 8
 #define LED9 4
 
+unsigned char pwm;
+unsigned char layer;
+unsigned char counter;
+unsigned char speed;
+unsigned char updateFrame=0;
+
+
+// Timer 1 output compare A interrupt service routine.
+// Determines when new frame is generated.
+ISR(TIMER1_COMPA_vect){
+  counter++;
+  if(counter >= speed){        
+    counter = 0;
+    if (updateFrame == 0){
+      updateFrame = 1;
+    }
+  }  
+}
+
+// Timer 2 output compare interrupt service routine.
+// Controls layer multiplexing and PWM.
+ISR(TIMER2_COMPA_vect){
+  // PWM current layer. count 0-15 
+  // Then change layer. count 0-8
+  pwm++;
+  if(pwm >= 15){
+    pwm = 0;
+     
+    layer++;
+    if(layer >= 3){
+      layer = 0;
+    }
+  }
+}
+
+
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(L1, OUTPUT);
@@ -38,6 +75,33 @@ void setup() {
   digitalWrite(LED7, LOW);
   digitalWrite(LED8, LOW);
   digitalWrite(LED9, LOW);
+
+  // Timer/Counter 1 initialization (~10 Hz)
+  TCCR1A = 0;// set entire TCCR1A register to 0
+  TCCR1B = 0;// same for TCCR1B
+  TCNT1  = 0;//initialize counter value to 0
+  // set compare match register for 1hz increments
+  OCR1A = 1562;// = (16*10^6) / (10*1024) - 1 (must be <65536)
+  // turn on CTC mode
+  TCCR1B |= (1 << WGM12);
+  // Set CS10 and CS12 bits for 1024 prescaler
+  TCCR1B |= (1 << CS12) | (1 << CS10);  
+  // enable timer compare interrupt
+  TIMSK1 |= (1 << OCIE1A);
+
+  // Timer/Counter 2 initialization (~7 kHz)
+  TCCR2A = 0;// set entire TCCR2A register to 0
+  TCCR2B = 0;// same for TCCR2B
+  TCNT2  = 0;//initialize counter value to 0
+  // set compare match register for 8khz increments
+  OCR2A = 8;// = (16*10^6) / (7000*256) - 1 (must be <256)
+  // turn on CTC mode
+  TCCR2A |= (1 << WGM21);
+  // Set CS21 bit for 256 prescaler
+  TCCR2B |= (1<<CS22) | (1 << CS21);   
+  // enable timer compare interrupt
+  TIMSK2 |= (1 << OCIE2A);
+  interrupts();
 }
 
 void layer(int layer)

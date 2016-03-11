@@ -259,7 +259,7 @@ void flash(int mydelay)
   delay(mydelay);
 }
 
-void random_behavior(int duration,int mydelay)
+void random_behavior_soft(int duration,int mydelay)
 {
   int i;
   komplett(0);
@@ -271,11 +271,12 @@ void random_behavior(int duration,int mydelay)
 }
 
 
+
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
   fade(100);
-  random_behavior(100,100);
+  random_behavior_soft(100,100);
   for(i=1;i<10;i++)fade(i*2);
   for (i=0;i<10;i++)fade(20);
   for (i=0;i<20;i++)flash(100);

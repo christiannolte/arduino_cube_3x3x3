@@ -157,71 +157,6 @@ void fade(int delay)
 }
 
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  pinMode(L1, OUTPUT);
-  pinMode(L2, OUTPUT);
-  pinMode(L3, OUTPUT);
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
-  pinMode(LED3, OUTPUT);
-  pinMode(LED4, OUTPUT);
-  pinMode(LED5, OUTPUT);
-  pinMode(LED6, OUTPUT);
-  pinMode(LED7, OUTPUT);
-  pinMode(LED8, OUTPUT);
-  pinMode(LED9, OUTPUT);
-  digitalWrite(L1, HIGH);
-  digitalWrite(L2, HIGH);
-  digitalWrite(L3, HIGH);
-  digitalWrite(LED1, LOW);
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, LOW);
-  digitalWrite(LED4, LOW);
-  digitalWrite(LED5, LOW);
-  digitalWrite(LED6, LOW);
-  digitalWrite(LED7, LOW);
-  digitalWrite(LED8, LOW);
-  digitalWrite(LED9, LOW);
-
-  // Timer/Counter 1 initialization (~10 Hz)
-  TCCR1A = 0;// set entire TCCR1A register to 0
-  TCCR1B = 0;// same for TCCR1B
-  TCNT1  = 0;//initialize counter value to 0
-  // set compare match register for 1hz increments
-  OCR1A = 1562;// = (16*10^6) / (10*1024) - 1 (must be <65536)
-  // turn on CTC mode
-  TCCR1B |= (1 << WGM12);
-  // Set CS10 and CS12 bits for 1024 prescaler
-  TCCR1B |= (1 << CS12) | (1 << CS10);  
-  // enable timer compare interrupt
-  TIMSK1 |= (1 << OCIE1A);
-
-  // Timer/Counter 2 initialization (~7 kHz)
-  TCCR2A = 0;// set entire TCCR2A register to 0
-  TCCR2B = 0;// same for TCCR2B
-  TCNT2  = 0;//initialize counter value to 0
-  // set compare match register for 8khz increments
-  OCR2A = 8;// = (16*10^6) / (7000*256) - 1 (must be <256)
-  // turn on CTC mode
-  TCCR2A |= (1 << WGM21);
-  // Set CS21 bit for 256 prescaler
-  TCCR2B |= (1<<CS22) | (1 << CS21);   
-  // enable timer compare interrupt
-  TIMSK2 |= (1 << OCIE2A);
-  interrupts();
-}
-
-void switch_layer(int layer)
-{
-  digitalWrite(L1, HIGH);
-  digitalWrite(L2, HIGH);
-  digitalWrite(L3, HIGH);
-  if(layer==1)   digitalWrite(L1, LOW);
-  if(layer==2)   digitalWrite(L2, LOW);
-  if(layer==3)   digitalWrite(L3, LOW);
-}
 
 
 void flash(int mydelay)
@@ -502,15 +437,76 @@ void fold(int mydelay)
   tiefen2etage(mydelay);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void switch_layer(int layer)
+{
+  digitalWrite(L1, HIGH);
+  digitalWrite(L2, HIGH);
+  digitalWrite(L3, HIGH);
+  if(layer==1)   digitalWrite(L1, LOW);
+  if(layer==2)   digitalWrite(L2, LOW);
+  if(layer==3)   digitalWrite(L3, LOW);
+}
+
+
+void setup() {
   int i;
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  pinMode(L1, OUTPUT);
+  pinMode(L2, OUTPUT);
+  pinMode(L3, OUTPUT);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
+  pinMode(LED6, OUTPUT);
+  pinMode(LED7, OUTPUT);
+  pinMode(LED8, OUTPUT);
+  pinMode(LED9, OUTPUT);
+
+  // Timer/Counter 1 initialization (~10 Hz)
+  TCCR1A = 0;// set entire TCCR1A register to 0
+  TCCR1B = 0;// same for TCCR1B
+  TCNT1  = 0;//initialize counter value to 0
+  // set compare match register for 1hz increments
+  OCR1A = 1562;// = (16*10^6) / (10*1024) - 1 (must be <65536)
+  // turn on CTC mode
+  TCCR1B |= (1 << WGM12);
+  // Set CS10 and CS12 bits for 1024 prescaler
+  TCCR1B |= (1 << CS12) | (1 << CS10);  
+  // enable timer compare interrupt
+  TIMSK1 |= (1 << OCIE1A);
+
+  // Timer/Counter 2 initialization (~7 kHz)
+  TCCR2A = 0;// set entire TCCR2A register to 0
+  TCCR2B = 0;// same for TCCR2B
+  TCNT2  = 0;//initialize counter value to 0
+  // set compare match register for 8khz increments
+  OCR2A = 8;// = (16*10^6) / (7000*256) - 1 (must be <256)
+  // turn on CTC mode
+  TCCR2A |= (1 << WGM21);
+  // Set CS21 bit for 256 prescaler
+  TCCR2B |= (1<<CS22) | (1 << CS21);   
+  // enable timer compare interrupt
+  TIMSK2 |= (1 << OCIE2A);
+  interrupts();
+  komplett(0,0);
+  delay(100);
+  single_led(150);
+  single_led(150);
   single_led(150);
   single_led(150);
   komplett(15,150);
   komplett(0,150);
-  random_behavior_hard(1000,10);
+  komplett(15,150);
+  komplett(0,150);
+  random_behavior_hard(2000,10);
   komplett(0,0);
+  fold(150);
+  fold(150);
+  fold(150);
+  fold(150);
   fold(150);
   fold(150);
   fold(150);
@@ -524,4 +520,55 @@ void loop() {
   random_behavior_soft(100,100);
   fade2off(200);
   for (i=0;i<10;i++)fade(20);
+}
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  int i;
+  i=random(0,7);
+  switch(i)
+  {
+    case 0:
+        single_led(150);
+        single_led(150);
+        single_led(150);
+        single_led(150);
+        break;
+    case 1:
+      komplett(15,150);
+      komplett(0,150);
+      komplett(15,150);
+      komplett(0,150);
+      break;
+    case 2:
+      random_behavior_hard(2000,10);
+      komplett(0,0);
+      break;
+    case 3:
+      fold(150);
+      fold(150);
+      fold(150);
+      fold(150);
+      fold(150);
+      fold(150);
+      fold(150);
+      fold(150);
+      break;
+    case 4:
+      for (i=0;i<20;i++)flash(100);
+      break;
+    case 5:
+      fade2on(100);
+      fade2off(100);
+      for(i=1;i<10;i++)fade(i*10);
+      fade(100);
+      fade(100);
+      break;
+    case 6:
+      random_behavior_soft(200,100);
+      fade2off(200);
+      break;  
+  }
+  delay(1000);
 }

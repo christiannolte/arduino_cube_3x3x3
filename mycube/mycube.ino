@@ -203,6 +203,29 @@ void single_led(int mydelay)
   komplett(0,0);
 }
 
+void single_led_soft()
+{
+  unsigned char i,j,k;
+  unsigned char value;
+  unsigned char *alteled;
+  
+  alteled=&cube[2][2][2];
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+        {
+          for(value=0;value<16;value++)
+          {
+            *alteled=15-value;
+            cube[k][j][i]=15;
+            delay(1);            
+          }
+          alteled=&cube[k][j][i];
+          
+        }
+  komplett(0,0);
+}
+
 void seiten(int mydelay)
 {
   komplett(0,0);
@@ -512,6 +535,10 @@ void setup() {
   fold(150);
   fold(150);
   for (i=0;i<10;i++)flash(100);
+  single_led_soft();
+  single_led_soft();
+  single_led_soft();
+  single_led_soft();
   fade2on(100);
   fade2off(100);
   for(i=1;i<10;i++)fade(i*10);
@@ -526,7 +553,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  i=random(0,7);
+  i=random(0,8);
   switch(i)
   {
     case 0:
@@ -569,6 +596,12 @@ void loop() {
       random_behavior_soft(200,100);
       fade2off(200);
       break;  
+    case 7:
+      single_led_soft();
+      single_led_soft();
+      single_led_soft();
+      single_led_soft();
+      break;
   }
   delay(1000);
 }

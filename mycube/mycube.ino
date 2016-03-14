@@ -218,10 +218,10 @@ void single_led_soft()
           {
             *alteled=15-value;
             cube[k][j][i]=15;
-            delay(1);            
+            delay(100/16);            
           }
           alteled=&cube[k][j][i];
-          delay(85);
+          //delay(85);
         }
   fade2off(100);
 }

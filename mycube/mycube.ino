@@ -223,7 +223,7 @@ void single_led_soft()
           alteled=&cube[k][j][i];
           delay(85);
         }
-    fade2off(100);
+  fade2off(100);
 }
 
 void seiten(int mydelay)

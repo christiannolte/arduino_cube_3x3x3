@@ -110,6 +110,25 @@ void komplett(unsigned char value,int mydelay)
         }
 }
 
+void komplett_soft()
+{
+  unsigned char i,j,k,value;
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+          for(value=0;value<16;value++){
+            cube[k][j][i]=value;
+            delay(20);
+          }
+  for(i=0;i<3;i++)
+     for(j=0;j<3;j++)
+        for(k=0;k<3;k++)
+          for(value=0;value<16;value++){
+            cube[k][j][i]=15-value;
+            delay(20);
+          }
+}
+
 
 void fade2off(int mydelay)
 {
@@ -219,13 +238,13 @@ void single_led_soft()
           for(value=0;value<16;value++)
           {
             *alteled=15-value;
-            cube[k][j][i]=15;
-            delay(100/16);            
+            cube[k][j][i]=value;
+            delay(20);            
           }
           alteled=&cube[k][j][i];
           //delay(85);
         }
-  fade2off(100);
+  //fade2off(10);
 }
 
 void seiten(int mydelay)
@@ -540,7 +559,10 @@ void setup() {
   single_led_soft();
   single_led_soft();
   single_led_soft();
-  single_led_soft();
+  single_led_soft();fade2off(10);
+  komplett_soft();
+  komplett_soft();
+  komplett_soft();
   fade2on(100);
   fade2off(100);
   for(i=1;i<10;i++)fade(i*10);
@@ -555,7 +577,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  i=random(0,8);
+  i=random(0,9);
   switch(i)
   {
     case 0:
@@ -602,7 +624,12 @@ void loop() {
       single_led_soft();
       single_led_soft();
       single_led_soft();
-      single_led_soft();
+      single_led_soft();fade2off(10);
+      break;
+    case 8:
+      komplett_soft();
+      komplett_soft();
+      komplett_soft();
       break;
   }
   delay(1000);

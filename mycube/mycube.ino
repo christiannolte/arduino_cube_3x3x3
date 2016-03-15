@@ -562,6 +562,78 @@ void tumble_z(int count)
   }
 }
 
+void tumble_y(int count)
+{
+  int i;
+  //achse
+  cube[1][0][1]=15;
+  cube[1][1][1]=15;
+  cube[1][2][1]=15;
+  for(i=0;i<count;i++)
+  {
+    //aus
+    cube[0][0][2]=0;
+    cube[0][1][2]=0;
+    cube[0][2][2]=0;
+    cube[2][0][0]=0;
+    cube[2][1][0]=0;
+    cube[2][2][0]=0;
+    //an
+    cube[1][0][2]=15;
+    cube[1][1][2]=15;
+    cube[1][2][2]=15;
+    cube[1][0][0]=15;
+    cube[1][1][0]=15;
+    cube[1][2][0]=15;
+    delay(150);
+    //aus
+    cube[1][0][2]=0;
+    cube[1][1][2]=0;
+    cube[1][2][2]=0;
+    cube[1][0][0]=0;
+    cube[1][1][0]=0;
+    cube[1][2][0]=0;
+    //an
+    cube[2][0][2]=15;
+    cube[2][1][2]=15;
+    cube[2][2][2]=15;
+    cube[0][0][0]=15;
+    cube[0][1][0]=15;
+    cube[0][2][0]=15;
+    delay(150);
+    //aus
+    cube[2][0][2]=0;
+    cube[2][1][2]=0;
+    cube[2][2][2]=0;
+    cube[0][0][0]=0;
+    cube[0][1][0]=0;
+    cube[0][2][0]=0;
+    //an
+    cube[0][0][1]=15;
+    cube[0][1][1]=15;
+    cube[0][2][1]=15;
+    cube[2][0][1]=15;
+    cube[2][1][1]=15;
+    cube[2][2][1]=15;
+    delay(150);
+    //aus
+    cube[0][0][1]=0;
+    cube[0][1][1]=0;
+    cube[0][2][1]=0;
+    cube[2][0][1]=0;
+    cube[2][1][1]=0;
+    cube[2][2][1]=0;
+    //an
+    cube[0][0][2]=15;
+    cube[0][1][2]=15;
+    cube[0][2][2]=15;
+    cube[2][0][0]=15;
+    cube[2][1][0]=15;
+    cube[2][2][0]=15;
+    delay(150);
+  }
+}
+
 
 void setup() {
   int i;
@@ -628,6 +700,7 @@ void setup() {
   fold(150);
   for (i=0;i<10;i++)flash(100);
   tumble_z(20);
+  tumble_y(20);
   komplett(0,0);
   single_led_soft(1);
   single_led_soft(0);
@@ -650,7 +723,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  i=random(0,10);
+  i=random(0,11);
   switch(i)
   {
     case 0:
@@ -706,6 +779,10 @@ void loop() {
       break;
     case 9:
       tumble_z(20);
+      komplett(0,0);
+      break;
+    case 10:
+      tumble_y(20);
       komplett(0,0);
       break;
   }

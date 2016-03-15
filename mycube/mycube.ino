@@ -47,7 +47,7 @@ ISR(TIMER2_COMPA_vect){
     if(layer >= 3){
       layer = 0;
     }
-    switch_layer(layer+1);
+    switch_layer(0);
   }
   //Do all the hard work here
   if(cube[0][0][layer]>pwm)  
@@ -94,6 +94,8 @@ ISR(TIMER2_COMPA_vect){
         digitalWrite(LED9, HIGH);
   else   
         digitalWrite(LED9, LOW);
+  switch_layer(layer+1);
+      
 }
 
 void komplett(unsigned char value,int mydelay)

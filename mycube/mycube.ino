@@ -627,7 +627,8 @@ void setup() {
   fold(150);
   fold(150);
   for (i=0;i<10;i++)flash(100);
-  tumble_z(100);
+  tumble_z(20);
+  komplett(0,0);
   single_led_soft(1);
   single_led_soft(0);
   single_led_soft(0);
@@ -704,7 +705,8 @@ void loop() {
       komplett_soft();
       break;
     case 9:
-      tumble_z(100);
+      tumble_z(20);
+      komplett(0,0);
       break;
   }
   delay(1000);

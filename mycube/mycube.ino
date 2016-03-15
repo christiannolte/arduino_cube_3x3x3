@@ -224,13 +224,20 @@ void single_led(int mydelay)
   komplett(0,0);
 }
 
-void single_led_soft()
+void single_led_soft(int first)
 {
   unsigned char i,j,k;
   unsigned char value;
   unsigned char *alteled;
-  
-  alteled=&cube[2][2][2];
+
+  if(first==0)
+  {
+    alteled=&cube[2][2][2];
+  }
+  else
+  {
+    alteled=&cube[0][0][0];    
+  }
   for(i=0;i<3;i++)
      for(j=0;j<3;j++)
         for(k=0;k<3;k++)
@@ -556,10 +563,10 @@ void setup() {
   fold(150);
   fold(150);
   for (i=0;i<10;i++)flash(100);
-  single_led_soft();
-  single_led_soft();
-  single_led_soft();
-  single_led_soft();fade2off(10);
+  single_led_soft(1);
+  single_led_soft(0);
+  single_led_soft(0);
+  single_led_soft(0);fade2off(10);
   komplett_soft();
   komplett_soft();
   komplett_soft();
@@ -621,10 +628,10 @@ void loop() {
       fade2off(200);
       break;  
     case 7:
-      single_led_soft();
-      single_led_soft();
-      single_led_soft();
-      single_led_soft();fade2off(10);
+      single_led_soft(1);
+      single_led_soft(0);
+      single_led_soft(0);
+      single_led_soft(0);fade2off(10);
       break;
     case 8:
       komplett_soft();

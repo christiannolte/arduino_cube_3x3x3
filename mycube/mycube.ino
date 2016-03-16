@@ -863,5 +863,6 @@ void loop() {
       komplett(0,0);
       break;
   }
+  komplett(0,0);
   delay(1000);
 }
